@@ -25,7 +25,7 @@ export default function Navbar() {
 
    
    return (
-      <div className='flex bg-white fixed z-10 w-screen h-16 items-center justify-between text-xl'>
+      <div className='flex bg-white border fixed z-10 w-screen h-16 items-center justify-between text-xl'>
          <div className='flex w-9/12 h-full items-center justify-evenly'>
             <Link to='' >Shop<span className='text-red-400 right-9 text-3xl'>&</span>Have</Link>
             <div className='w-1/2 h-2/3 relative'>
