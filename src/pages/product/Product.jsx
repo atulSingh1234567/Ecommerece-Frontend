@@ -32,7 +32,7 @@ export default function Product() {
           <div className='flex flex-wrap gap-2'>
           {
             cardImg.map(function(item, index){
-              return <Card imgSrc={item}  />
+              return <Card key={index} imgSrc={item}  />
             })
           }
           </div>
