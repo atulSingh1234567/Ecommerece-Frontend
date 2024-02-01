@@ -25,7 +25,7 @@ export default function Signup({ task, info, useAs, userType, phoneAfter, goto }
             <div className='bg-blue-500 px-3 py-12 w-3/12 justify-between flex flex-col'>
                 <span className='flex flex-col gap-2'>
                     <h1 className='text-2xl tracking-wide text-white'>{task}</h1>
-                    <p className='text-lg text-white'>{info}</p>
+                    <p className='text-sm text-white'>{info}</p>
                 </span>
                 <span className='flex flex-col relative justify-center items-center'>
                     <div className='flex flex-col text-gray-700 items-center justify-center bg-gray-200 w-3/6 h-28 border-8 rounded border-black'>
