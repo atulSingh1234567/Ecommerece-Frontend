@@ -1,4 +1,3 @@
-import React from 'react'
 import InputBox from '../../components/inputbox/InputBox'
 import { useParams } from 'react-router-dom'
 import Card from '../../components/card/Card'
