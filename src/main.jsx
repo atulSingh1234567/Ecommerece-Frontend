@@ -6,13 +6,14 @@ import Layout from './Layout'
 import Homepage from './pages/homepage/Homepage'
 import Product from './pages/product/Product.jsx'
 import Signup from './pages/signupPage/Signup.jsx'
+import Profile from './pages/profilePage/Profile.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
   element: <Layout />,
   children: [
     {
-      path: "",
+      path: `${''}`,
       element: <Homepage />,
     },
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([{
       info='Get access to your account'
       goto='signup'
       />
+    },
+    {
+      path: 'profile',
+      element: <Profile />
     }
   ]
 }])

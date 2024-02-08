@@ -1,9 +1,8 @@
 import { createContext, useContext } from "react";
 
-
 const crossContext = createContext({
     click: false,
-    setClick: ()=>{}
+    setClick: ()=>{},
 })
 
 export const CrossContextProvider = crossContext.Provider;

@@ -14,3 +14,11 @@
 body{
     background-color: rgb(238, 234, 234);
 }
+
+/* .otp-container{
+    @apply w-3/12 py-6 text-base border;
+}
+
+.otp-container input{
+    @apply !mr-0 flex-1 py-5 outline-1;
+} */

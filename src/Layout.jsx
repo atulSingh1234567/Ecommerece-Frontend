@@ -6,7 +6,6 @@ import Footer from './components/footer/Footer.jsx';
 
 export default function Layout() {
   const [click , setClick] = useState(false);
-   
 
   return (
     <CrossContextProvider value={{click , setClick}}>

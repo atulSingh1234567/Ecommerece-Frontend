@@ -20,8 +20,7 @@ export default function Navbar() {
    const [isHovered, setIsHovered] = useState(false);
    const [dotAnimation, setDotAnimation] = useState(false)
    const { click, setClick } = useCrossContext();
-
-
+   
    useEffect(
       () => {
          if (click) {
@@ -32,7 +31,9 @@ export default function Navbar() {
    )
 
 
+  
    return (
+      
       <div className='flex bg-white border fixed z-10 w-screen h-16 items-center justify-between text-xl'>
          <div className='flex w-9/12 h-full items-center justify-evenly'>
             <Link to='' >Shop<span className='text-red-400 right-9 text-3xl'>&</span>Have</Link>
@@ -42,10 +43,10 @@ export default function Navbar() {
                <Button onClick={() => setClick(prev => !prev)} className='absolute right-10 bg-gray-200 top-1' icon={query.length > 0 ? <CloseIcon /> : ''} />
             </div>
             <div onMouseOver={() => setIsHovered(true)} onMouseOut={() => setIsHovered(false)} className='relative hover:bg-blue-500 hover:text-white rounded'>
-               <button className='flex p-1 gap-1 rounded'>Login <div className={`${isHovered ? 'transition-transform duration-500 rotate-180' : 'transition-transform duration-500 rotate-0'}`}><KeyboardArrowDownOutlinedIcon /> </div> </button>
+               <button className='flex items-center p-1 gap-1 rounded'> <AccountCircleOutlinedIcon/> Login <div className={`${isHovered ? 'transition-transform duration-500 rotate-180' : 'transition-transform duration-500 rotate-0'}`}><KeyboardArrowDownOutlinedIcon /> </div> </button>
                {
                   isHovered ? <span className='absolute top-11 left-0'>
-                     <HoverComp customer='New Customer?' elements={[{ element: <AccountCircleOutlinedIcon />, title: 'My Profile' }, { element: <BrushRoundedIcon />, title: 'Orders' }, { element: <FavoriteBorderRoundedIcon />, title: 'Wishlist' }]} />
+                     <HoverComp show={true} elements={[{ element: <AccountCircleOutlinedIcon />, title: 'Profile' }, { element: <BrushRoundedIcon />, title: 'Orders' }, { element: <FavoriteBorderRoundedIcon />, title: 'Wishlist' } , {title: 'Log out'}]} />
                   </span> : ''
                }
             </div>
@@ -55,11 +56,12 @@ export default function Navbar() {
             <MoreVertOutlinedIcon className='border min-w-8 rounded min-h-8' />
             {
                dotAnimation ? <span className='absolute top-10' style={{ right: '-20px' }}>
-                  <HoverComp customer='' elements={[{ element: <NotificationsNoneIcon />, title: 'Notification Preference' }, { element: <SupportAgentIcon />, title: 'Customer Care' }, { element: <InfoIcon />, title: 'About us' }]} />
+                  <HoverComp show={false} elements={[{ element: <NotificationsNoneIcon />, title: 'Notification Preference' }, { element: <SupportAgentIcon />, title: 'Customer Care' }, { element: <InfoIcon />, title: 'About us' }]} />
                </span> : ''
 
             }
          </div>
       </div>
+      
    )
 }
