@@ -6,6 +6,8 @@ import Layout from './Layout'
 import Homepage from './pages/homepage/Homepage'
 import Product from './pages/product/Product.jsx'
 import Signup from './pages/signupPage/Signup.jsx'
+import Checkout from "./pages/checkout/Checkout.jsx";
+
 
 const router = createBrowserRouter([{
   path: '/',
@@ -13,7 +15,11 @@ const router = createBrowserRouter([{
   children: [
     {
       path: "",
-      element: <Homepage />,
+      element: <Homepage />
+    },
+    {
+      path: 'products/:productName',
+      element: <Product />
     },
     {
       path: 'signup',
@@ -26,25 +32,13 @@ const router = createBrowserRouter([{
       goto='login'
       />
     },
-    {
-      path: 'products/:productName',
-      element: <Product />
-    },
-    {
-      path: 'login',
-      element: <Signup
-      userType='New'
-      useAs='Create an account'
-      phoneAfter='Request for OTP'
-      task={`Log in`}
-      info='Get access to your account'
-      goto='signup'
-      />
-    }
+      {
+        path: "products/:productName/checkout",
+        element: <Checkout />,
+      },
   ]
 }])
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}>
-  </RouterProvider>
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <RouterProvider router={router}></RouterProvider>,
+);
