@@ -7,6 +7,9 @@ import Homepage from './pages/homepage/Homepage'
 import Product from './pages/product/Product.jsx'
 import Signup from './pages/signupPage/Signup.jsx'
 import Profile from './pages/profilePage/Profile.jsx'
+import Checkout from './pages/checkout/Checkout.jsx'
+import ProductLayout from './pages/product/ProductLayout.jsx'
+import Cart from './pages/cart/Cart.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -28,10 +31,25 @@ const router = createBrowserRouter([{
       />
     },
     {
-      path: 'products/:productName',
-      element: <Product />
-    },
-    {
+      path: 'products/:category',
+      element: <ProductLayout />,
+      children: [
+        {
+          path: '',
+          element: <Product />
+
+        },
+        {
+          path: 'checkout/:productName',
+          element: <Checkout />
+        }
+      ]
+      },
+      {
+        path: 'cart',
+        element: <Cart />
+      },
+      {
       path: 'login',
       element: <Signup
       userType='New'
@@ -45,11 +63,15 @@ const router = createBrowserRouter([{
     {
       path: 'profile',
       element: <Profile />
+    },
+    {
+      path: 'orders',
+      element: <Cart order={true}/>
     }
   ]
+
 }])
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}>
-  </RouterProvider>
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <RouterProvider router={router}></RouterProvider>,
+);

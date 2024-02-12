@@ -39,7 +39,7 @@ export default function HoverComp(props) {
            phoneNumber == null ? 'New Customer?' : 'Welcome'
         }
         {
-          phoneNumber == null ? <Link className='text-blue-700 text-lg font-bold' to="/signup">Sign up</Link> : <i>{user.phoneNumber}</i> 
+          phoneNumber == null ? <Link className='text-blue-700 text-lg font-bold' to="/signup">Sign up</Link> : <span className='text-lg font-thin text-rose-600'>{user.phoneNumber}</span> 
         }
       </div>
     }

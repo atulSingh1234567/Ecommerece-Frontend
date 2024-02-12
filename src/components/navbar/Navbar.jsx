@@ -3,7 +3,7 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '../button/Button';
 import { useCrossContext } from '../../contexts/Context';
@@ -21,6 +21,8 @@ export default function Navbar() {
    const [dotAnimation, setDotAnimation] = useState(false)
    const { click, setClick } = useCrossContext();
    
+   const navigate = useNavigate();
+
    useEffect(
       () => {
          if (click) {
@@ -30,7 +32,9 @@ export default function Navbar() {
       }, [click]
    )
 
-
+   const cartIconClicked = ()=>{
+       return navigate('/cart');
+   }
   
    return (
       
@@ -50,7 +54,9 @@ export default function Navbar() {
                   </span> : ''
                }
             </div>
-            <Button className='min-w-16 h-16' icon={<ShoppingCartOutlinedIcon />} />
+            <div onClick={cartIconClicked}>
+               <Button className='min-w-16 h-16' icon={<ShoppingCartOutlinedIcon />} />
+            </div>
          </div>
          <div onMouseOver={() => setDotAnimation(true)} onMouseOut={() => setDotAnimation(false)} className='w-1/12 relative cursor-pointer h-9'>
             <MoreVertOutlinedIcon className='border min-w-8 rounded min-h-8' />

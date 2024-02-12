@@ -69,7 +69,7 @@ export default function Signup({ task, info, useAs, userType, phoneAfter, goto }
        await confirmOBJ.confirm(otp)
        setloading(false)
        toast.success("OTP verified!!!")
-       signedInUser(phoneNumber);
+    //    signedInUser(phoneNumber);
        
        history('/profile')
     }catch(err){
