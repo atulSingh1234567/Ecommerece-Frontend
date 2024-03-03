@@ -6,20 +6,18 @@ import Layout from './Layout'
 import Homepage from './pages/homepage/Homepage'
 import Product from './pages/product/Product.jsx'
 import Signup from './pages/signupPage/Signup.jsx'
-import Checkout from "./pages/checkout/Checkout.jsx";
-
+import Profile from './pages/profilePage/Profile.jsx'
+import Checkout from './pages/checkout/Checkout.jsx'
+import ProductLayout from './pages/product/ProductLayout.jsx'
+import Cart from './pages/cart/Cart.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
   element: <Layout />,
   children: [
     {
-      path: "",
-      element: <Homepage />
-    },
-    {
-      path: 'products/:productName',
-      element: <Product />
+      path: `${''}`,
+      element: <Homepage />,
     },
     {
       path: 'signup',
@@ -32,11 +30,56 @@ const router = createBrowserRouter([{
       goto='login'
       />
     },
-      {
-        path: "products/:productName/checkout",
-        element: <Checkout />,
+    {
+      path: 'products/:category',
+      element: <ProductLayout />,
+      children: [
+        {
+          path: '',
+          element: <Product />
+
+        },
+        {
+          path: 'checkout/:productName',
+          element: <Checkout />
+        }
+      ]
       },
+      {
+        path: 'cart',
+        element: <ProductLayout />,
+        children: [
+          {
+            path: '',
+            element: <Cart />
+          },
+          {
+            path: 'checkout/:prodname',
+            element: <Checkout />
+          }
+        ]
+      },
+      {
+      path: 'login',
+      element: <Signup
+      userType='New'
+      useAs='Create an account'
+      phoneAfter='Request for OTP'
+      task={`Log in`}
+      info='Get access to your account'
+      goto='signup'
+      />
+    },
+    {
+      path: 'profile',
+      element: <Profile />
+    },
+    // {
+    //   path: 'orders',
+    //   element: 
+    // }
   ]
+
 }])
 
 ReactDOM.createRoot(document.getElementById("root")).render(

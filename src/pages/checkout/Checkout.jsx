@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 
 const Checkout = () => {
   const { productName } = useParams();
-  console.log(productName);
   const product_Name = "Nike Air Max Pro 8888 - Super Light";
   const productPrice = 100;
   const discount = 10;
@@ -16,6 +15,8 @@ const Checkout = () => {
 
   const productImg =
     "https://m.media-amazon.com/images/I/61g89rqJqhL.__AC_SX300_SY300_QL70_FMwebp_.jpg";
+
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-10 py-6 pt-28">
