@@ -1,40 +1,29 @@
 import InputBox from '../../components/inputbox/InputBox'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Card from '../../components/card/Card'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 export default function Product() {
   const brands = [`Levi's`, `Adidas`, `Puma`, `H&M`, `Other`]
   const {category} = useParams()
-  const cardImg = [
-    {
-      product: 'soft toy',
-      productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70',
-    },
-    {
-      product: 'soft toy',
-      productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70',
-    },
-    {
-      product: 'soft toy',
-      productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70',
-    },
-    {
-      product: 'soft toy',
-      productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70',
-    },
-    {
-      product: 'soft toy',
-      productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70',
-    },
-    {
-      product: 'soft toy',
-      productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70',
-    },
-    {
-      product: 'soft toy',
-      productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70',
-    },
-  ]
+  const [cardImg , setCardImg] = useState([]);
+  useEffect(
+    ()=>{
+      axios.get('http://localhost:8000/api/v1/products')
+      .then(
+        (response)=>{
+            setCardImg(response.data);
+            // console.log("data from /products route has been fetched: " , response.data);
+        }
+      )
+      .catch(
+        (error)=>{
+          console.log("error in the /products route has error: " , error);
+        }
+      )
+    }, []
+  )
 
   return (
     <div className='flex relative justify-evenly w-screen top-20'>
@@ -59,7 +48,7 @@ export default function Product() {
           <div className='flex flex-wrap gap-2'>
           {
             cardImg.map(function(item, index){
-              return <Link to={`checkout/${item.product}`} key={index}> <Card imgSrc={item.productImg} name={item.product}  /> </Link>
+              return <Card key={item._id} goto={`checkout/${item.product}`} imgSrc={item.img} name={item.productname} prodId={item._id}   /> 
             })
           }
           </div>

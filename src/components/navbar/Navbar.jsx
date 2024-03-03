@@ -19,7 +19,7 @@ export default function Navbar() {
    const [query, setQuery] = useState('');
    const [isHovered, setIsHovered] = useState(false);
    const [dotAnimation, setDotAnimation] = useState(false)
-   const { click, setClick } = useCrossContext();
+   const { click, setClick,prodCount } = useCrossContext();
    
    const navigate = useNavigate();
 
@@ -54,7 +54,8 @@ export default function Navbar() {
                   </span> : ''
                }
             </div>
-            <div onClick={cartIconClicked}>
+            <div className='relative' onClick={cartIconClicked}>
+               <span className='absolute top-2 right-4 font-bold rounded-full text-green-600'>{prodCount}</span>
                <Button className='min-w-16 h-16' icon={<ShoppingCartOutlinedIcon />} />
             </div>
          </div>

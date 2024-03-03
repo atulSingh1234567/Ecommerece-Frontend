@@ -47,7 +47,17 @@ const router = createBrowserRouter([{
       },
       {
         path: 'cart',
-        element: <Cart />
+        element: <ProductLayout />,
+        children: [
+          {
+            path: '',
+            element: <Cart />
+          },
+          {
+            path: 'checkout/:prodname',
+            element: <Checkout />
+          }
+        ]
       },
       {
       path: 'login',
@@ -64,10 +74,10 @@ const router = createBrowserRouter([{
       path: 'profile',
       element: <Profile />
     },
-    {
-      path: 'orders',
-      element: <Cart order={true}/>
-    }
+    // {
+    //   path: 'orders',
+    //   element: 
+    // }
   ]
 
 }])

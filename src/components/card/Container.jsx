@@ -25,7 +25,7 @@ export default function Container({boxFor , cardImg}) {
           <div ref={containerRef} className='flex overflow-x-scroll items-center gap-1'>
             {
               cardImg.map(function(item , index){
-                return <Link key={index} to={`/products/${boxFor}`}> <Card imgSrc={item} name='Soft rabbit' info='upto 70% off'/> </Link>
+                return  <Card goto={`/products/${boxFor}`} key={index} imgSrc={item} name='Soft rabbit' productId='3' info='upto 70% off'/>
               })
             }
             <Button onClick={scrollToRight} icon={<ChevronRightIcon />} className='absolute right-0 w-12 border rounded p-4 h-16 bg-white cursor-pointer'/>

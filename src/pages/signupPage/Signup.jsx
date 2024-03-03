@@ -7,8 +7,6 @@ import { auth } from './firebase.config'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import CircularProgress from '@mui/material/CircularProgress';
 import toast, {Toaster} from 'react-hot-toast'
-import { useCrossContext } from '../../contexts/Context';
-
 
 export default function Signup({ task, info, useAs, userType, phoneAfter, goto }) {
     const [isFocused, setIsFocused] = useState(false)

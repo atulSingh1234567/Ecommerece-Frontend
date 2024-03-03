@@ -1,56 +1,94 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
+import toast,{Toaster} from 'react-hot-toast';
+import { useCrossContext } from '../../contexts/Context';
+import { useNavigate } from 'react-router-dom';
 
-export default function Cart({order}) {
-  const products = [{
-    productName: 'Soft teddy',
-    productPrice: 345,
-    productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70'
-    , productRating: 4.5,
-    discount: 10
-  }, {
-    productName: 'Soft teddy',
-    productPrice: 345,
-    productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70'
-    , productRating: 4.5,
-    discount: 10
-  }, {
-    productName: 'Soft teddy',
-    productPrice: 345,
-    productImg: 'https://rukminim2.flixcart.com/image/612/612/xif0q/stuffed-toy/m/f/e/cute-pink-rabbit-stuffed-animal-soft-toy-for-kids-playing-long-original-imagwezvzs5efa4g.jpeg?q=70'
-    , productRating: 4.5,
-    discount: 10
-  }]
-
+export default function Cart() {
+  const [products,setProducts] = useState([]);
+  const {myProdCount,prodCount, user} = useCrossContext();
+  const navigate = useNavigate();
   const Subtotal = products.reduce(function(x , y){
-    return x+y.productPrice;
+    return x+y.price;
   } , 0)
   
   const discount = products.reduce(function(x, y){
-    return x+((y.productPrice * y.discount) / 100);
+    return x+((y.price * y.discount) / 100);
   },0)
+
+  const deleteItemFromCart = (id)=>{
+        axios.post('http://localhost:8000/api/v1/delete-product' , {productId: id})
+        .then(
+          (res)=>{
+            // console.log(res)
+            toast.success("Item is removed from the cart")
+          }
+        )
+        .catch(
+          (err)=>{
+            console.log(err)
+          }
+        )
+  }
   
- 
+ useEffect(
+  ()=>{
+    // console.log(localStorage.getItem('userId'))
+    if(user.length >= 0 || user.length != undefined){
+    axios.post('http://localhost:8000/api/v1/getcartitem' , {userId: localStorage.getItem('userId')})
+    .then(
+      (res)=>{
+          // console.log(res)
+          setProducts(res.data)
+          myProdCount(products.length);
+          localStorage.setItem('productN' ,  prodCount)
+      }
+    )
+    .catch(
+      (err)=>{
+         console.log(err)
+      }
+    )
+    }
+  },[products]
+ )
+
+ const gotocheckout = (prodname)=>{
+    navigate(`/cart/checkout/${prodname}`)
+ }
+//  console.log(products)
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-10 pt-20">    
-        <div className="gap-8 h-fit bg-gray-100 rounded-md p-3">
+   { products.length > 0 ?  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-10 pt-20">  
+   <Toaster toastOptions={{duration: 4000,
+                                     style: {
+                                        position: 'relative',
+                                        top: 40
+                                     }
+                                     }} />  
+       <div className="gap-8 h-fit bg-gray-100 rounded-md p-3">
        {
         products.map(function (product, index) {
           
-        return ( <div key={index} className="flex gap-10 bg-gray-100 border border-white rounded-md p-3">
+        return ( <div key={index} className="flex relative gap-10 bg-gray-100 border border-white rounded-md p-3">
+             <i onClick={()=>deleteItemFromCart(product._id)} className='absolute right-4 cursor-pointer'><DeleteIcon/></i>
               <div className="border border-slate-200 p-2 w-32 rounded-xl">
-                <img src={product.productImg} alt={product.productName} className="rounded-xl" />
+                <img src={product.img} alt={product.productname} className="rounded-xl" />
               </div>
               <div className="space-y-2">
-                <h2 className="font-bold text-xl text-black">{product.productName}</h2>
+                <h2 className="font-bold text-xl text-black">{product.productname}</h2>
                 <div className="grid grid-cols-2">
                   <div>
-                    <p className="font-light">Instant {product.discount}% off</p>
-                    <p className="font-bold text-xl">${product.productPrice}</p>
+                    <span className='text-sm'>{product.brand}</span>
+                    {/* <p className="font-light">Instant {product.discount}% off</p> */}
+                    <p className="font-bold text-xl text-green-500">${product.price}</p>
+                    <p className='text-sm text-gray-500 font-thin w-full'>{product.aboutProd}</p>
                   </div>
 
                 </div>
-                <p className="bg-green-400 inline-block px-1 py-0.5 rounded">{product.productRating}★</p>
+                {/* <p className="bg-green-400 inline-block px-1 py-0.5 rounded">{product.ratings}★</p> */}
+                <button onClick={()=>gotocheckout(product.productname)} className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Order</button>
               </div>
             </div>
         )
@@ -59,7 +97,7 @@ export default function Cart({order}) {
 }
 </div> 
 
-{  !order &&     <div className="bg-white rounded px-10 py-8">
+ { <div className="bg-white rounded px-10 py-8">
           <h1 className="text-xl font-bold">Payment Details</h1>
           <p className="font-light">Complete your order by providing your payment details.</p>
 
@@ -81,12 +119,13 @@ export default function Cart({order}) {
           </div>
           <div className="mt-6 flex items-center justify-between">
             <p className="text-md font-medium text-gray-900">Total Payable Amount:</p>
-            <p className="text-2xl font-semibold text-gray-900">${8 + Subtotal - discount}</p>
+            <p className="text-2xl font-semibold text-gray-900">${8 + Subtotal - (discount?discount:0)}</p>
           </div>
-          <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
-        </div>
+          
+    </div> 
+} 
+  </div> : <div className='h-screen flex items-center justify-center'> <h1 className='text-4xl tracking-wide text-gray-500'>Please add products to the cart</h1>  </div>
 }
-      </div>
     </>
   );
 };
