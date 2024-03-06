@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
   const [products,setProducts] = useState([]);
-  const {myProdCount,prodCount, user} = useCrossContext();
+  const {setProdCount,prodCount,isLoggedIn,setIsLoggedIn, user} = useCrossContext();
+  // console.log(user.length)
   const navigate = useNavigate();
   const Subtotal = products.reduce(function(x , y){
     return x+y.price;
@@ -35,14 +36,17 @@ export default function Cart() {
  useEffect(
   ()=>{
     // console.log(localStorage.getItem('userId'))
-    if(user.length >= 0 || user.length != undefined){
+    console.log(user)
+    if(isLoggedIn || localStorage.getItem('isLoggedIn')){
+      console.log(localStorage.getItem('userId'))
     axios.post('http://localhost:8000/api/v1/getcartitem' , {userId: localStorage.getItem('userId')})
     .then(
       (res)=>{
           // console.log(res)
           setProducts(res.data)
-          myProdCount(products.length);
-          localStorage.setItem('productN' ,  prodCount)
+          localStorage.setItem('isLoggedIn' , true)
+          setProdCount(products.length);
+          // localStorage.setItem('productN' ,  prodCount)
       }
     )
     .catch(
@@ -54,7 +58,9 @@ export default function Cart() {
   },[products]
  )
 
- const gotocheckout = (prodname)=>{
+ const gotocheckout = (prodname , prod)=>{
+    localStorage.setItem('ordered' , JSON.stringify(prod))
+    // setForPaymentProd(product)
     navigate(`/cart/checkout/${prodname}`)
  }
 //  console.log(products)
@@ -88,7 +94,7 @@ export default function Cart() {
 
                 </div>
                 {/* <p className="bg-green-400 inline-block px-1 py-0.5 rounded">{product.ratings}★</p> */}
-                <button onClick={()=>gotocheckout(product.productname)} className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Order</button>
+                <button onClick={()=>gotocheckout(product.productname,product)} className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Order</button>
               </div>
             </div>
         )

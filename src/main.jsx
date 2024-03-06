@@ -10,6 +10,7 @@ import Profile from './pages/profilePage/Profile.jsx'
 import Checkout from './pages/checkout/Checkout.jsx'
 import ProductLayout from './pages/product/ProductLayout.jsx'
 import Cart from './pages/cart/Cart.jsx'
+import OrderPage from './pages/order/OrderPage.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -74,10 +75,20 @@ const router = createBrowserRouter([{
       path: 'profile',
       element: <Profile />
     },
-    // {
-    //   path: 'orders',
-    //   element: 
-    // }
+    {
+      path: 'orders',
+      element: <ProductLayout />,
+      children: [
+        {
+          path: '',
+          element: <OrderPage />
+        },
+        {
+          path: 'checkout/:prodname',
+          element: <Checkout />
+        }
+      ]
+    }
   ]
 
 }])

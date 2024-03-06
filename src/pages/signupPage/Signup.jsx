@@ -7,6 +7,7 @@ import { auth } from './firebase.config'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import CircularProgress from '@mui/material/CircularProgress';
 import toast, {Toaster} from 'react-hot-toast'
+import { useCrossContext } from '../../contexts/Context';
 
 export default function Signup({ task, info, useAs, userType, phoneAfter, goto }) {
     const [isFocused, setIsFocused] = useState(false)
@@ -16,7 +17,7 @@ export default function Signup({ task, info, useAs, userType, phoneAfter, goto }
     const [errMsg, setErrMsg] = useState('');
     const [loading, setloading] = useState(false)
     const [confirmOBJ,setConfirmOBJ] = useState({})
-
+    const {isLoggedIn , setIsLoggedIn} = useCrossContext()
     const history = useNavigate()
     const inputStyle = {
         width: '40px',
@@ -68,9 +69,10 @@ export default function Signup({ task, info, useAs, userType, phoneAfter, goto }
        setloading(false)
        toast.success("OTP verified!!!")
     //    signedInUser(phoneNumber);
-       
+       setIsLoggedIn(true)
        history('/profile')
     }catch(err){
+        setIsLoggedIn(false)
        setErrMsg(err.message)
        setloading(false)
     }
