@@ -40,7 +40,7 @@ export default function Profile() {
       }
     });
     
-    axios.post('http://localhost:8000/api/v1/users', { formData, finalAddress })
+    axios.post('https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/users', { formData, finalAddress })
       .then(
         (res) => {
           console.log(res.data)
@@ -74,7 +74,7 @@ export default function Profile() {
 
   useEffect(
     ()=>{
-      axios.post('http://localhost:8000/api/v1/existinguser' , {signupPhoneNumber:localStorage.getItem('signupPhoneNumber')})
+      axios.post('https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/existinguser' , {signupPhoneNumber:localStorage.getItem('signupPhoneNumber')})
       .then(
         (res)=>{
           setUser(res.data);

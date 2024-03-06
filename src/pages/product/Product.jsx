@@ -66,7 +66,7 @@ export default function Product() {
         )
       }else{
         const page = e.target.innerText;
-        axios.get(`http://localhost:8000/api/v1/best-deals?pageno=${page}`)
+        axios.get(`https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/best-deals?pageno=${page}`)
         .then(
           (res)=>{
             setCardImg(res.data.actualProd);
