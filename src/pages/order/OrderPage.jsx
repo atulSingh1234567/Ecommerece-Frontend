@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useCrossContext } from '../../contexts/Context'
 export default function OrderPage() {
     const [products, setProducts] = useState([])
     const navigate = useNavigate()
+    const {isLoggedIn} = useCrossContext()
     useEffect(
+
         () => {
+            if(isLoggedIn || localStorage.getItem('isLoggedIn')){
             axios.post('http://localhost:8000/api/v1/ordered-products', { userId: localStorage.getItem('userId') })
                 .then(
                     (res) => {
@@ -17,6 +21,7 @@ export default function OrderPage() {
                         console.log(err)
                     }
                 )
+            }
         }, []
     )
 
