@@ -15,11 +15,12 @@ export default function Profile() {
   const [genderSelected, setGenderSelected] = useState(null)
   const [formData, setFormData] = useState({});
   const [finalAddress, setFinalAddress] = useState({});
+  const [user  , setUser] = useState([])
   const genderSelector = (option) => {
     setGenderSelected(option === genderSelected ? null : option)
   }
   
-  const {user} = useCrossContext()
+  
 
   const addUser = function (e) {
     e.preventDefault();
@@ -42,7 +43,7 @@ export default function Profile() {
     axios.post('http://localhost:8000/api/v1/users', { formData, finalAddress })
       .then(
         (res) => {
-          console.log(res)
+          console.log(res.data)
         }
       )
       .catch(
@@ -70,6 +71,22 @@ export default function Profile() {
       [e.target.name]: e.target.value
     })
   }
+
+  useEffect(
+    ()=>{
+      axios.post('http://localhost:8000/api/v1/existinguser' , {signupPhoneNumber:localStorage.getItem('signupPhoneNumber')})
+      .then(
+        (res)=>{
+          setUser(res.data);
+        }
+      )
+      .catch(
+        (err)=>{
+          console.log(err.message)
+        }
+      )
+    },[]
+  )
 
   // console.log(currentUser)
   return (

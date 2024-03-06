@@ -6,8 +6,13 @@ const crossContext = createContext({
     user: {},
     myUser: ()=>{},
     userPhone: '',
+    setUserPhone: ()=>{},
     prodCount: 0,
-    myProdCount: ()=>{}
+    setProdCount: ()=>{},
+    isLoggedIn: false,
+    setIsLoggedIn: ()=>{},
+    forPaymentProd: {},
+    setForPaymentProd: ()=>{}
 })
 
 

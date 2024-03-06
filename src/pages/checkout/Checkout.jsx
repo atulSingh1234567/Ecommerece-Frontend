@@ -1,36 +1,67 @@
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useCrossContext } from "../../contexts/Context";
+import axios from "axios";
+import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
-  const { productName } = useParams();
-  const product_Name = "Nike Air Max Pro 8888 - Super Light";
-  const productPrice = 100;
-  const discount = 10;
-  const productDescription = "Soft toy";
-  const productBrand = "H&M";
-  const productRating = 4;
-  const productReviews = 100;
-  const productColor = "Pink";
-  const productSize = "S";
-  const productQuantity = 1;
+  const [checkoutMsg, setCheckoutMsg] = useState('')
+  const {forPaymentProd} = useCrossContext() 
+  // console.log(forPaymentProd)
+  const navigate = useNavigate()
+  // console.log(PaymentProd)
+  
+  const PaymentProd = JSON.parse(localStorage.getItem('ordered'));
+  const userId = localStorage.getItem('userId')
+  const Subtotal = function(){
+    return PaymentProd.price;
+  }
+  
+  const discount = function(){
+    return (Math.floor(PaymentProd.price * PaymentProd.discount) / 100);
+  }
 
-  const productImg =
-    "https://m.media-amazon.com/images/I/61g89rqJqhL.__AC_SX300_SY300_QL70_FMwebp_.jpg";
+  const orderPlaced = async ()=>{
+    try {
+      axios.post('http://localhost:8000/api/v1/order' , {userId:userId , productId:PaymentProd._id})
+      .then(
+        (res)=>{
+          setCheckoutMsg(res.data);
+        }
+      )
+      .catch(
+        (err)=>{
+          setCheckoutMsg(err.message)
+        }
+      );
+
+      
+    } catch (error) {
+       setCheckoutMsg(error.message)
+       console.log(error)
+    }
+  }
 
 
+  const endBox = ()=>{
+    setCheckoutMsg('');
+    navigate('/orders')
+  }
+  console.log(checkoutMsg)
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-10 py-6 pt-28">
+      <div className="grid relative h-screen grid-cols-1 w-full md:grid-cols-2 gap-4 px-10 py-6 pt-28">
         <div className="gap-8 bg-gray-100 rounded-md p-3">
           <div className="flex gap-10 bg-gray-100 rounded-md p-3">
             <div className="border border-slate-200 p-2 w-32 rounded-xl">
-              <img src={productImg} alt={product_Name} className="rounded-xl" />
+              <img src={PaymentProd.img} alt={PaymentProd.productname} className="rounded-xl" />
             </div>
             <div className="space-y-2">
-              <h2 className="font-bold text-xl text-black">{product_Name}</h2>
+              <h2 className="font-bold text-xl text-black">{PaymentProd.productname}</h2>
               <div className="grid grid-cols-2">
               <div>
-              <p className="font-light">Instant {discount}% off</p>
-              <p className="font-bold text-xl">${productPrice}</p>
+              <p className="font-light">Instant {`${Math.floor(PaymentProd.discount)}`}% off</p>
+              <p className="font-bold text-xl">${PaymentProd.price}</p>
               </div>
               <div className="">
                 <button className="border border-slate-300 px-2 rounded-md hover:bg-slate-200">+</button>
@@ -38,7 +69,7 @@ const Checkout = () => {
                 <button className="border border-slate-300 px-2 rounded-md hover:bg-slate-200">-</button>
               </div>
               </div>
-              <p className="bg-green-400 inline-block px-1 py-0.5 rounded">{productRating}★</p>
+              <p className="bg-green-400 inline-block px-1 py-0.5 rounded">{PaymentProd.rating}★</p>
             </div>
           </div>
           <div className="flex items-center gap-6 mt-4 border border-slate-300 rounded-md p-4 justify-between">
@@ -60,7 +91,7 @@ const Checkout = () => {
           <div class="mt-6 border-t border-b py-2">
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-gray-900">Subtotal:</p>
-              <p class="font-semibold text-gray-900">$399.00</p>
+              <p class="font-semibold text-gray-900">{Subtotal()}</p>
             </div>
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-gray-900">Shipping Charges:</p>
@@ -68,16 +99,23 @@ const Checkout = () => {
             </div>
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-gray-900">Discounted Price:</p>
-              <p class="font-semibold text-gray-900">- $120</p>
+              <p class="font-semibold text-gray-900">- ${discount()}</p>
             </div>
           </div>
           <div class="mt-6 flex items-center justify-between">
             <p class="text-md font-medium text-gray-900">Total Payable Amount:</p>
-            <p class="text-2xl font-semibold text-gray-900">$408.00</p>
+            <p class="text-2xl font-semibold text-gray-900">${8 + Subtotal() -(discount()?discount():0)}</p>
           </div>
-        <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
+        <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" onClick={orderPlaced}>Place Order</button>
         </div>
+
+       { checkoutMsg.length > 0 ? <div className={`bg-blue-700 rounded flex items-center cursor-pointer justify-center top-1/3 left-1/3 absolute h-44 w-4/12`}> 
+            <i onClick={endBox} className="bg-white rounded-full absolute border shadow-lg right-[-10px] top-[-10px]"><ClearIcon/></i>
+            <h1 className="text-2xl font-semibold text-white">{checkoutMsg}</h1>
+        </div> : ''
+}
       </div>
+      
     {/* </div > */}
     </>
   );

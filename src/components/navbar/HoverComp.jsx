@@ -4,11 +4,12 @@ import { auth } from '../../pages/signupPage/firebase.config';
 import { signOut } from 'firebase/auth';
 import toast, {Toaster} from 'react-hot-toast'
 import { onAuthStateChanged } from 'firebase/auth';
+import { useCrossContext } from '../../contexts/Context';
 
 export default function HoverComp(props) {
   const navigate = useNavigate();
   const [user , setUser]  = useState({})
-   
+   const {isLoggedIn,setIsLoggedIn} = useCrossContext()
    useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth , (authUser) => {
        if (authUser) {
@@ -26,10 +27,14 @@ export default function HoverComp(props) {
   const phoneNumber = user? user.phoneNumber : null;
   const logOutUser = ()=>{
     signOut(auth).then(() => {
+      navigate('/login')
        toast.success('Logged out successfully')
-       navigate('/login')
+       setIsLoggedIn(false)
+       localStorage.removeItem('isLoggedIn')
     }).catch((error) => {
       // An error happened.
+      setIsLoggedIn(true)
+      console.log("error occurred while logging out")
     });
   }
   return (
