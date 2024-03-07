@@ -70,6 +70,8 @@ export default function Signup({ task, info, useAs, userType, phoneAfter, goto }
        toast.success("OTP verified!!!")
     //    signedInUser(phoneNumber);
        setIsLoggedIn(true)
+       localStorage.setItem('signupPhoneNumber' , phoneNumber)
+       localStorage.setItem('isLoggedIn' , true)
        history('/profile')
     }catch(err){
         setIsLoggedIn(false)
