@@ -25,7 +25,7 @@ const Checkout = () => {
 
   const orderPlaced = async ()=>{
     try {
-      if(isLoggedIn){
+      if(isLoggedIn || localStorage.getItem('isLoggedIn')){
       axios.post('https://ecommerece-backend.vercel.app/api/v1/order' , {userId:userId , productId:PaymentProd._id})
       .then(
         (res)=>{
