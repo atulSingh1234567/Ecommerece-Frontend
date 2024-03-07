@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "private": true,
+  "proxy": "https://ecommerece-backend.vercel.app/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
