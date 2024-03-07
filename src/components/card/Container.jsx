@@ -24,7 +24,7 @@ export default function Container({boxFor , ctg}) {
       ()=>{
         if(category !== 'best deals'){
           // console.log(category)
-        axios.post(`/api/v1/products?limit=15`, {category : category})
+        axios.post(`https://ecommerece-backend.vercel.app/api/v1/products?limit=15`, {category : category})
         .then(
           (response)=>{
               setCardImg(response.data.products);
@@ -39,7 +39,7 @@ export default function Container({boxFor , ctg}) {
         )
         }
         else{
-          axios.get(`/api/v1/best-deals?limit=15`)
+          axios.get(`https://ecommerece-backend.vercel.app/api/v1/best-deals?limit=15`)
           .then(
             (res)=>{
 

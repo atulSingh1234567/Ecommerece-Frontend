@@ -19,7 +19,7 @@ export default function Cart() {
   },0)
 
   const deleteItemFromCart = (id)=>{
-        axios.post('/api/v1/delete-product' , {productId: id})
+        axios.post('https://ecommerece-backend.vercel.app/api/v1/delete-product' , {productId: id})
         .then(
           (res)=>{
             // console.log(res)
@@ -39,7 +39,7 @@ export default function Cart() {
     console.log(user)
     if(isLoggedIn || localStorage.getItem('isLoggedIn')){
       console.log(localStorage.getItem('userId'))
-    axios.post('https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/getcartitem' , {userId: localStorage.getItem('userId')})
+    axios.post('https://ecommerece-backend.vercel.app/api/v1/getcartitem' , {userId: localStorage.getItem('userId')})
     .then(
       (res)=>{
           // console.log(res)
@@ -61,7 +61,7 @@ export default function Cart() {
  const gotocheckout = (prodname , prod)=>{
     localStorage.setItem('ordered' , JSON.stringify(prod))
     // setForPaymentProd(product)
-    navigate(`/cart/checkout/${prodname}`)
+    navigate(`https://ecommerece-backend.vercel.app/cart/checkout/${prodname}`)
  }
 //  console.log(products)
   return (
