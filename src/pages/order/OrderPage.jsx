@@ -38,7 +38,7 @@ export default function OrderPage() {
     return (
         <>
             {
-                products && <div className='relative h-screen top-20 flex py-4 px-6 flex-col gap-4 w-screen'>
+                products.length > 0 ? <div className='relative top-20 flex py-4 px-6 flex-col gap-4 w-screen'>
                     <h1 className='text-xl font-bold'>Your Orders</h1>
                     <div>
                         {
@@ -58,7 +58,7 @@ export default function OrderPage() {
                         }
                     </div>
 
-                </div>
+                </div> : <div className='h-screen flex items-center justify-center'> <h1 className='text-4xl tracking-wide text-gray-500'>Come on! Go, Get your things.</h1>  </div>
             }
         </>
     )
