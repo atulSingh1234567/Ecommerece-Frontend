@@ -31,6 +31,8 @@ export default function HoverComp(props) {
        toast.success('Logged out successfully')
        setIsLoggedIn(false)
        localStorage.removeItem('isLoggedIn')
+       localStorage.removeItem('signupPhoneNumber')
+      //  localStorage.clear()
     }).catch((error) => {
       // An error happened.
       setIsLoggedIn(true)

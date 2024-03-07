@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [checkoutMsg, setCheckoutMsg] = useState('')
-  const {forPaymentProd} = useCrossContext() 
+  const {isLoggedIn} = useCrossContext() 
   // console.log(forPaymentProd)
   const navigate = useNavigate()
   // console.log(PaymentProd)
@@ -21,8 +21,11 @@ const Checkout = () => {
     return (Math.floor(PaymentProd.price * PaymentProd.discount) / 100);
   }
 
+  console.log(localStorage.getItem('isLoggedIn'))
+
   const orderPlaced = async ()=>{
     try {
+      if(isLoggedIn){
       axios.post('https://ecommerece-backend.vercel.app/api/v1/order' , {userId:userId , productId:PaymentProd._id})
       .then(
         (res)=>{
@@ -34,6 +37,10 @@ const Checkout = () => {
           setCheckoutMsg(err.message)
         }
       );
+
+      }else{
+        navigate('/profile')
+      }
 
       
     } catch (error) {
