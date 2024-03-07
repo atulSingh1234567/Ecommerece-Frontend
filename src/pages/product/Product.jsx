@@ -16,7 +16,7 @@ export default function Product() {
   useEffect(
     () => {
       if (category !== 'best deals') {
-        axios.post('http://localhost:8000/api/v1/products?pageno=1', { category: category })
+        axios.post('/api/v1/products?pageno=1', { category: category })
           .then(
             (response) => {
               setCardImg(response.data.products);
@@ -32,7 +32,7 @@ export default function Product() {
           )
       }
       else {
-        axios.get('http://localhost:8000/api/v1/best-deals?pageno=1')
+        axios.get('/api/v1/best-deals?pageno=1')
           .then(
             (res) => {
               setCardImg(res.data.actualProd)
@@ -52,7 +52,7 @@ export default function Product() {
   const handleChange = (e)=>{
       console.log(e.target.innerText)
       if(category !== 'best deals'){
-        axios.post(`http://localhost:8000/api/v1/products?pageno=${e.target.innerText}` , {category:category})
+        axios.post(`/api/v1/products?pageno=${e.target.innerText}` , {category:category})
         .then(
           (res)=>{
             setCardImg(res.data.products);
@@ -66,7 +66,7 @@ export default function Product() {
         )
       }else{
         const page = e.target.innerText;
-        axios.get(`https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/best-deals?pageno=${page}`)
+        axios.get(`/api/v1/best-deals?pageno=${page}`)
         .then(
           (res)=>{
             setCardImg(res.data.actualProd);

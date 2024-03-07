@@ -19,7 +19,7 @@ export default function Cart() {
   },0)
 
   const deleteItemFromCart = (id)=>{
-        axios.post('https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/delete-product' , {productId: id})
+        axios.post('/api/v1/delete-product' , {productId: id})
         .then(
           (res)=>{
             // console.log(res)

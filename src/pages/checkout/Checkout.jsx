@@ -23,7 +23,7 @@ const Checkout = () => {
 
   const orderPlaced = async ()=>{
     try {
-      axios.post('https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/order' , {userId:userId , productId:PaymentProd._id})
+      axios.post('/api/v1/order' , {userId:userId , productId:PaymentProd._id})
       .then(
         (res)=>{
           setCheckoutMsg(res.data);

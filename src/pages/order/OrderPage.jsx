@@ -10,7 +10,7 @@ export default function OrderPage() {
 
         () => {
             if(isLoggedIn || localStorage.getItem('isLoggedIn')){
-            axios.post('https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/ordered-products', { userId: localStorage.getItem('userId') })
+            axios.post('/api/v1/ordered-products', { userId: localStorage.getItem('userId') })
                 .then(
                     (res) => {
                         setProducts(res.data);
