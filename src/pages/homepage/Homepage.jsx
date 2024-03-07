@@ -26,7 +26,7 @@ export default function Homepage() {
         const fetchData = async () => {
           await fetchUser();
           if (userPhone.length > 0) {
-            axios.post('https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app//api/v1/existinguser', { signupPhoneNumber: userPhone })
+            axios.post('https://ecommerece-backend-d7pwbukza-atuls-projects-11835781.vercel.app/api/v1/existinguser', { signupPhoneNumber: userPhone })
               .then(
                 (res) => {
                   myUser(res.data)
