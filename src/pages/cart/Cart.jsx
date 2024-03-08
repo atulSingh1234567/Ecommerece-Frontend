@@ -36,9 +36,9 @@ export default function Cart() {
  useEffect(
   ()=>{
     // console.log(localStorage.getItem('userId'))
-    console.log(user)
+    // console.log(user)
     if(isLoggedIn || localStorage.getItem('isLoggedIn')){
-      console.log(localStorage.getItem('userId'))
+      // console.log(localStorage.getItem('userId'))
     axios.post('https://ecommerece-backend.vercel.app/api/v1/getcartitem' , {userId: localStorage.getItem('userId')})
     .then(
       (res)=>{
