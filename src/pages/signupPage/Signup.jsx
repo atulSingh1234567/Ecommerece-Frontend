@@ -71,7 +71,7 @@ export default function Signup({ task, info, useAs, userType, phoneAfter, goto }
     //    signedInUser(phoneNumber);
        setIsLoggedIn(true)
        localStorage.setItem('signupPhoneNumber' , "+91"+phoneNumber)
-       console.log(phoneNumber)
+    //    console.log(phoneNumber)
        localStorage.setItem('isLoggedIn' , true)
        history('/profile')
     }catch(err){
