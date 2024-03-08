@@ -10,7 +10,7 @@ export default function Card({ imgSrc,info,name,prodId,goto,price,rating,item}) 
       function mycart(id){
         if(user.length >= 0 || user.length != undefined){
           // console.log("inside post function")
-        axios.post('http://localhost:8000/api/v1/cart' ,{
+        axios.post('https://ecommerece-backend.vercel.app/api/v1/cart' ,{
           productId:id , userId: localStorage.getItem('userId')
         })
         .then(
