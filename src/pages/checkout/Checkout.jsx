@@ -21,7 +21,7 @@ const Checkout = () => {
     return (Math.floor(PaymentProd.price * PaymentProd.discount) / 100);
   }
 
-  console.log(localStorage.getItem('isLoggedIn'))
+  // console.log(localStorage.getItem('isLoggedIn'))
 
   const orderPlaced = async ()=>{
     try {
@@ -54,7 +54,7 @@ const Checkout = () => {
     setCheckoutMsg('');
     navigate('/orders')
   }
-  console.log(checkoutMsg)
+  // console.log(checkoutMsg)
   return (
     <>
       <div className="grid relative h-screen grid-cols-1 w-full md:grid-cols-2 gap-4 px-10 py-6 pt-28">

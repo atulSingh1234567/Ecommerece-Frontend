@@ -61,7 +61,7 @@ export default function Cart() {
  const gotocheckout = (prodname , prod)=>{
     localStorage.setItem('ordered' , JSON.stringify(prod))
     // setForPaymentProd(product)
-    navigate(`https://ecommerece-backend.vercel.app/cart/checkout/${prodname}`)
+    navigate(`/cart/checkout/${prodname}`)
  }
 //  console.log(products)
   return (

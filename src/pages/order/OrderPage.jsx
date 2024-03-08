@@ -30,7 +30,7 @@ export default function OrderPage() {
     const buyAgain = (prod , prodname)=>{
         localStorage.setItem('ordered' , JSON.stringify(prod))
     // setForPaymentProd(product)
-    navigate(`https://ecommerece-backend.vercel.app/orders/checkout/${prodname}`)
+    navigate(`/orders/checkout/${prodname}`)
         
     }
 
