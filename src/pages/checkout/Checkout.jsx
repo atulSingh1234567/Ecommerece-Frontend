@@ -3,6 +3,7 @@ import { useCrossContext } from "../../contexts/Context";
 import axios from "axios";
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Checkout = () => {
   const [checkoutMsg, setCheckoutMsg] = useState('')
@@ -25,6 +26,7 @@ const Checkout = () => {
 
   const orderPlaced = async ()=>{
     try {
+      
       if(isLoggedIn || localStorage.getItem('isLoggedIn')){
       axios.post('https://ecommerece-backend.vercel.app/api/v1/order' , {userId:userId , productId:PaymentProd._id})
       .then(
@@ -57,7 +59,7 @@ const Checkout = () => {
   // console.log(checkoutMsg)
   return (
     <>
-      <div className="grid relative h-screen grid-cols-1 w-full md:grid-cols-2 gap-4 px-10 py-6 pt-28">
+      <div className="grid relative h-screen grid-cols-6 w-full md:grid-cols-2 gap-4 px-10 py-6 pt-28">
         <div className="gap-8 bg-gray-100 rounded-md p-3">
           <div className="flex gap-10 bg-gray-100 rounded-md p-3">
             <div className="border border-slate-200 p-2 w-32 rounded-xl">
@@ -113,7 +115,7 @@ const Checkout = () => {
             <p class="text-md font-medium text-gray-900">Total Payable Amount:</p>
             <p class="text-2xl font-semibold text-gray-900">${8 + Subtotal() -(discount()?discount():0)}</p>
           </div>
-        <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" onClick={orderPlaced}>Place Order</button>
+        <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" onClick={orderPlaced}>{checkoutMsg==='placing'? <CircularProgress/>: <span>Place Order</span> }</button>
         </div>
 
        { checkoutMsg.length > 0 ? <div className={`bg-blue-700 rounded flex items-center cursor-pointer justify-center top-1/3 left-1/3 absolute h-44 w-4/12`}> 

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useCrossContext } from '../../contexts/Context'
+import CircularProgress from '@mui/material/CircularProgress';
+
 export default function OrderPage() {
     const [products, setProducts] = useState([])
     const navigate = useNavigate()
@@ -42,9 +44,9 @@ export default function OrderPage() {
                     <h1 className='text-xl font-bold'>Your Orders</h1>
                     <div>
                         {
-                            products.map(function(item , index){
+                          products.length > 0 ?  products.map(function(item , index){
                                 return (
-                                    <div key={index} className='flex border border-black gap-4 h-44 w-8/12'>
+                                    <div key={index} className='flex gap-4 h-44 w-8/12'>
                                         <img src={item.img} alt={item.productname} />
                                         <div>
                                         <h1 className='text-xl font-semibold'>{item.productname}</h1>
@@ -54,11 +56,11 @@ export default function OrderPage() {
                                         </div>
                                     </div>
                                 )
-                            })
+                            }) : <div className='h-screen flex items-center justify-center'> <h1 className='text-4xl tracking-wide text-gray-500'>Come on! Go, Get your things.</h1>  </div>
                         }
                     </div>
 
-                </div> : <div className='h-screen flex items-center justify-center'> <h1 className='text-4xl tracking-wide text-gray-500'>Come on! Go, Get your things.</h1>  </div>
+                </div> : <div className='flex items-center justify-center h-[100vh] w-screen'><CircularProgress/></div>
             }
         </>
     )

@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
 import { useCrossContext } from '../../contexts/Context';
 import toast,{Toaster} from 'react-hot-toast';
+import CircularProgress from '@mui/material/CircularProgress';
+
 export default function Card({ imgSrc,info,name,prodId,goto,price,rating,item}) {
       const {user,setProdCount,forPaymentProd,setForPaymentProd} = useCrossContext();
       const navigate = useNavigate();
@@ -41,26 +43,27 @@ export default function Card({ imgSrc,info,name,prodId,goto,price,rating,item}) 
     }
 
     return (
-      <div className='min-w-52 cursor-pointer rounded flex flex-col items-center justify-evenly h-64 border' onClick={()=>aClickFunc(item)}>
+      <div className='min-w-52 relative cursor-pointer rounded flex flex-col items-center justify-evenly h-64 border' onClick={()=>aClickFunc(item)}>
                     <Toaster toastOptions={{duration: 4000,
                                      style: {
                                         position: 'relative',
                                         top: 40
                                      }
                                      }} />
-      <div className='w-full position-relative px-2'>
-         <i onClick={()=>mycart(prodId)}> <BookmarkBorderIcon className='text-green-400'/></i> 
-      </div>
-      <Link to={`${goto}`}>
-      <div className='w-40'>
-        <img className='h-full w-full' src={imgSrc} alt={name} />
-      </div>
-      <div className='flex flex-col items-center'>
-        <h1 className=''>{name.substring(0,16)}...</h1>
-        <p className='text-xl font-bold text-green-500'>${price}</p>
-        <p className='font-bold text-green-400 w-full text-center'>{info}</p>
-      </div>
-    </Link>
+                 
+        <i onClick={()=>mycart(prodId)}> <BookmarkBorderIcon className='text-green-400 absolute top-1 right-2'/></i> 
+      {
+        name.length <= 0 ? <CircularProgress className=''/> :  <Link to={`${goto}`}>
+          <div className='relative w-40'>
+            <img className=' h-36 w-36' src={imgSrc} alt={name} />
+          </div>
+          <div className='flex flex-col items-center'>
+            <h1 className=''>{name.substring(0,16)}...</h1>
+            <p className='text-xl font-bold text-green-500'>${price}</p>
+            <p className='font-bold text-green-400 w-full text-center'>{info}</p>
+          </div>
+        </Link>
+     }
     </div>
   )
 }

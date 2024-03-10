@@ -79,10 +79,10 @@ export default function Cart() {
           
         return ( <div key={index} className="flex relative gap-10 bg-gray-100 border border-white rounded-md p-3">
              <i onClick={()=>deleteItemFromCart(product._id)} className='absolute right-4 cursor-pointer'><DeleteIcon/></i>
-              <div className="border border-slate-200 p-2 w-32 rounded-xl">
-                <img src={product.img} alt={product.productname} className="rounded-xl" />
-              </div>
-              <div className="space-y-2">
+              {/* <div className="border border-slate-200 w-full rounded-xl"> */}
+                <img src={product.img} alt={product.productname} className="rounded-xl w-32 h-32" />
+              {/* </div> */}
+              <div className="">
                 <h2 className="font-bold text-xl text-black">{product.productname}</h2>
                 <div className="grid grid-cols-2">
                   <div>

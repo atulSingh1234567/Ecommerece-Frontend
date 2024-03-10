@@ -125,7 +125,7 @@ export default function Product() {
         <h1 className='text-xl pb-4'>{category}</h1>
         <div className='flex flex-wrap gap-2'>
           {
-              filtering().map(function(item,index){
+            filtering().length <= 0? <Card name=''/> :  filtering().map(function(item,index){
                       return <Card key={item._id} item={item}  goto={`checkout/${item.productname}`} imgSrc={item.img} name={item.productname} price={item.price} info={`upto ${Math.floor(item.discount)}% off`} rating={item.rating} prodId={item._id} />
               })
           }

@@ -59,15 +59,7 @@ export default function Navbar() {
                <Button className='min-w-16 h-16' icon={<ShoppingCartOutlinedIcon />} />
             </div>
          </div>
-         <div onMouseOver={() => setDotAnimation(true)} onMouseOut={() => setDotAnimation(false)} className='w-1/12 relative cursor-pointer h-9'>
-            <MoreVertOutlinedIcon className='border min-w-8 rounded min-h-8' />
-            {
-               dotAnimation ? <span className='absolute top-10' style={{ right: '-20px' }}>
-                  <HoverComp show={false} elements={[{ element: <NotificationsNoneIcon />, title: 'Notification Preference' }, { element: <SupportAgentIcon />, title: 'Customer Care' }, { element: <InfoIcon />, title: 'About us' }]} />
-               </span> : ''
-
-            }
-         </div>
+         
       </div>
       
    )

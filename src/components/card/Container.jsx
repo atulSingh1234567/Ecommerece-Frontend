@@ -61,7 +61,7 @@ export default function Container({boxFor , ctg}) {
           <h1 className='font-normal text-2xl'>{boxFor}</h1>
           <div ref={containerRef} className='flex overflow-x-scroll items-center gap-1'>
             {
-              cardImg.map(function(item , index){
+              cardImg.length <= 0 ? <Card name=''/> : cardImg.map(function(item , index){
                 return  <Card goto={`/products/${boxFor}`} key={index} imgSrc={item.img} name={item.productname} prodId={item._id} price={item.price} info={`upto ${Math.floor(item.discount)}% off`}/>
               })
             }
